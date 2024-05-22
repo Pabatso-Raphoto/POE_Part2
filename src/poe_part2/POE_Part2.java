@@ -18,7 +18,7 @@ public class POE_Part2 {
        
         
         //List to store tasks
-        private List<Task> tasks;
+        private static List<Task> tasks;
         
         public POE_Part2(){
             tasks = new ArrayList<>();
@@ -110,7 +110,7 @@ public class POE_Part2 {
 
 //checking The Task length 
     
-        public void addTask (String TaskDesc) {
+        public void addTask (String TaskDesc) {//test comment
         Task newTask = new Task(TaskNr++, TaskDesc); //Create new task with current TaskNr
         tasks.add(newTask);//Add task to the List    
 }

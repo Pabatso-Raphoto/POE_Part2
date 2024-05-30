@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
 package poe_part2;
-
+//Task.java 
 /**
  *
  * @author lab_services_student
@@ -15,25 +15,23 @@ public class TaskClass {
      private int taskNumber; 
      private String taskDescription;
      private String developerFirstName;
-     private String developerLasttName;
+     private String developerLastName;
      private int taskDuration;
-     private String taskID;
+     private int taskID;
      private String taskStatus;
      
-     public Task(String TaskName, int taskNumber,String taskDescription, String developerFirstName, String developerLastName, int taskDuration, 
-              String taskStatus){
-     this.TaskName = TaskName;
-     this.taskNumber = taskNumber;
-     this.taskDescription = taskDescription;
-     this.developerFirstName = developerFirstName;
-     this.developerLasttName = developerLastName;
-     this.taskDuration = taskDuration;
-     this.taskID = taskID;
-     this.taskStatus = taskStatus;     
+    public TaskClass(String taskName, int taskID, String taskDescription, String developerFirstName, String developerLastName, int taskDuration, String taskStatus) {
+        this.TaskName = TaskName;
+        this.taskNumber = taskNumber;
+        this.taskDescription = taskDescription;
+        this.developerFirstName = developerFirstName;
+        this.developerLastName = developerLastName;
+        this.taskDuration = taskDuration;
+        this.taskStatus = taskStatus;    
      }
     
-     public String createTaskDescription(){
-         return taskDescription()<=50;
+     public boolean checkTaskDescription(){
+        return taskDescription.length()<=50;
                  }
          
      public String createTaskID(){
@@ -41,8 +39,9 @@ public class TaskClass {
          //Get first 2 letters of task name and change to uppercase 
          String TaskName1 = TaskName.substring(0,2).toUpperCase();
          
-         //Get last 3 letters of developer's last name and put in uppsercase
-         String developerLastName1 = developerLastName.substring(developerLastName.length()-3) ;
+         // Get last 3 letters of developer's last name
+        String developerLastName1 = developerLastName.substring(developerLastName.length() - 3);
+
          
          //Combination of the TaskName1 and developLastname1 with colons between them
          String taskID = TaskName1 + ":" + taskNumber + ":" + developerLastName1;
@@ -61,8 +60,6 @@ public class TaskClass {
      }
      
      public int returnTotalHours(){
-         return TaskDuration;
+         return taskDuration;
      }
-}
-    
 }

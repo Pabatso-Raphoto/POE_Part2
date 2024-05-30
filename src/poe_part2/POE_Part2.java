@@ -5,147 +5,113 @@
 package poe_part2;
 
 import javax.swing.JOptionPane; 
-import java.util.ArrayList;
+import java.util.ArrayList; 
+
 /**
  *
  * @author lab_services_student
  */
 public class POE_Part2 {
-        public static String WelcomeMessage;
-        public static String TaskDesc;
-        public static String TaskName;
-        private static int TaskNr = 0;
+    
+         //List to store tasks
+        private static ArrayList<TaskClass> tasks = new ArrayList();
+        private static int TaskTotalHours ;
        
         
-        //List to store tasks
-        private static List<Task> tasks;
-        
-        public POE_Part2(){
-            tasks = new ArrayList<>();
-        }
-        
-       
-        
-    /**
-     * @param args the command line arguments
-     */
-        //main methods
+
+        //main method
     public static void main(String[] args) {
         // TODO code application logic here
    
       //Welcome Message to user 
-       
         JOptionPane.showMessageDialog(null, "Welcome to EasyKanban");
         
-        TaskName = JOptionPane.showInputDialog(null, "Enter the task name");
-        JOptionPane.showMessageDialog(null,"Your task name is " + TaskName);
+        int numberofTasks = Integer.parseInt(JOptionPane.showInputDialog("How many tasks do you wish to enter?"));
         
         
-        var feature = 0;   
-        
-        
-           //do-while  loop for the tasks and ends at eand of loop        
-        do{
-                  String[]options = {"1.Add tasks", "2.Coming Soon", "3.Quit" };
-                  feature = JOptionPane.showOptionDialog(null, "Hello User!", "Welcome to EasyKanban", 0, 2, null, options, options[0]);
-    
+                                
+        do {
+            String[] options = {"1.Add tasks", "2. Show Report", "3.Quit"};
+            int feature = JOptionPane.showOptionDialog(null, "Choose an Option", "Menu",
+                    JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);                       
+                  
            switch(feature){
                
                case 0:
-                   JOptionPane.showMessageDialog(null, "Add task method");//remove later
-                   //addTask();
+                  addTasks(numberofTasks);
                    break;
                case 1:
                    JOptionPane.showMessageDialog(null, "Coming soon");
                    break;
                case 2:
-                   JOptionPane.showMessageDialog(null, "Goodbye");
+                   JOptionPane.showMessageDialog(null, "Exiting application, Goodbye");
                    System.exit(0);
                default:
                    JOptionPane.showMessageDialog(null, "Incorrect selection!!!!!");
            }
         
-        }while(feature != 2);      
+        } while (true);
         
-        
-      
-        POE_Part2 taskManager = new POE_Part2();
-        //Add specific task 
-        taskManager.addTask("Complete assignment");
-        taskManager.addTask("Attend meeting");
-        taskManager.addTask("Submit report");
-                   
-     
-        //Display tasks 
-        taskManager.displayTasks();
-        
-        
-     
- 
-        
-        
-        
-    }
-    
-    
-    //Method to display all task - void means no return
-    public void displayTasks(){
-        POE_Part2 show = new  POE_Part2(); //line creates new Stringbuilder object named show.
-                                                  //Stringbuilder constructs strings in Java.
-        for(POE_Part2 task : tasks){ //for loop iterates each Task object into task list.
-            show.append(task).append("/n"); //
         }
-        JOptionPane.showMessageDialog(null, show.toString(),"Tasks", JOptionPane.INFORMATION_MESSAGE);//displays an info messagge 
-    }
-    
-    
-    public static boolean checkTaskDescription(){
-    if(TaskDesc.length() <=50){
-    JOptionPane.showMessageDialog(null, "Task successfully captured");
-    }else{
-    JOptionPane.showMessageDialog(null, "Please enter a task description of less than 50 characters");
-    }
-    return true; 
-    }
+        private static void addTasks(int numberofTasks){
+            
+            for(int i = 0; i< numberofTasks; i++){
+                String TaskName = JOptionPane.showInputDialog("Enter task name");
+                
+                String taskDescription = JOptionPane.showInputDialog("Enter task description (max 50 characters):");
+            
+            if(taskDescription.length()>50) {
+                
+                JOptionPane.showMessageDialog(null, "Please enter a task description of less than 50 characters");
+            
+            i--; 
 
-//checking The Task length 
-    
-        public void addTask (String TaskDesc) {//test comment
-        Task newTask = new Task(TaskNr++, TaskDesc); //Create new task with current TaskNr
-        tasks.add(newTask);//Add task to the List    
+            continue;
+            }
+            
+            String developerFirstName = JOptionPane.showInputDialog("Enter developer's first name:");
+            String developerLastName = JOptionPane.showInputDialog("Enter developer's last name:");
+            int taskDuration = Integer.parseInt(JOptionPane.showInputDialog("Enter task duration in hours:"));
+            
+            
+            String taskStatus = JOptionPane.showInputDialog(null, "Select task status: \n1. To do\n2. Done\n3 Doing");
+            
+            //input to actual text
+            if("1".equals(taskStatus)){
+                taskStatus = "To do";
+            } else if ("2.".equals(taskStatus)){
+                taskStatus = "Done";
+            }else if("3.".equals(taskStatus)){
+                taskStatus = "Doing";
+            }else{
+                // Default to "To do" if input is invalid 
+                taskStatus = "To do";
+                    }
+            // Create a new task object with the provided details
+            TaskClass task = new TaskClass(TaskName, tasks.size(), taskDescription, developerFirstName, developerLastName, taskDuration, taskStatus);
+
+            // Add the new task to the list of tasks
+            tasks.add(task);
+
+            // Add the duration of the new task to the total hours
+            TaskTotalHours += task.returnTotalHours();
+
+            JOptionPane.showMessageDialog(null, "Task successfully captured\n" + task.printTaskDetails());
+        }
+
+        JOptionPane.showMessageDialog(null, "Total number of hours across all tasks: " + TaskTotalHours);
+    }
 }
+            
+            
+            
+            
+            
+            
+            
+            
+            
         
-}
+    
+    
 
-
-
-
- /*if(feature == 0)
-          {
-              
-          }else if(feature == 1)
-          {
-          
-          }
-          else if(feature == 2)
-          {
-          
-          }
-          else
-          {
-          
-          }*/
-
-
-/* do{
-          if(feature == 0 && 1 ){
-           JOptionPane.showMessageDialog(null,"You selected task 1" );   
-           }if(feature ==1){
-            JOptionPane.showMessageDialog(null,"You selected option 2");
-           }if(feature ==3){
-            JOptionPane.showMessageDialog(null, "You selected option 3")
-                    }while () 
-        
-        String[]options = {"1.Add tasks", "2.Coming Soon", "3.Quit" };
-        var feature = JOptionPane.showOptionDialog(null, "Select One:", "Hello User!", 0, 3, null, options, options[0]);
-        */
